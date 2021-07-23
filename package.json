@@ -1,7 +1,7 @@
 {
-  "name": "node-ts-template",
+  "name": "talentbait-test",
   "version": "0.1.0",
-  "description": "A template for nodejs projects with configuration files for typescript support",
+  "description": "",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
