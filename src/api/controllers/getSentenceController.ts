@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 export const getSentenceController = () => {
-    return (req: Request, res: Response, next: NextFunction) => {
+    return (_req: Request, _res: Response, _next: NextFunction) => {
         
     }
 }
