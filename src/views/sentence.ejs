@@ -18,32 +18,29 @@
 
   <body>
     <div class="d-flex flex-column h-100 flex-grow-1">
-      <h1 class="mt-5 align-self-center flex-grow-1">
-        Sentence <%= sentence.id %>
-      </h1>
-      <h1 class="mt-2 align-self-center flex-grow-1">
-        Sentence <%= sentence.text %>
-      </h1>
-      <h1 class="mt-2 align-self-center flex-grow-1">
-        Sentence <%= sentence.category %>
-      </h1>
+      <h3 class="mt-5 align-self-center flex-grow-1">
+        <%= sentence.text %>
+      </h3>
+      <h3 class="mt-3 align-self-center flex-grow-1">
+        <%= sentence.category %>
+      </h3>
       <div
         class="btn-group mt-5 align-self-center flex-grow-1"
         role="group"
         aria-label="First group"
       >
-        <a href="/sentences?page=0&orderBy"
+        <a href=<%= "/public/sentence/" + sentence.id + '/edit' %> class="mx-2"
           ><button type="button" class="mr-2 btn btn-primary">Edit</button></a
         >
-        <a href="/sentences?page=0&orderBy"
+        <a href=<%= "/public/sentence/" + sentence.id + '/delete' %> class="mx-2"
           ><button type="button" class="btn btn-primary mr-2">Delete</button></a
         >
       </div>
 
-      <a href="/sentences?page=0&orderBy"
+      <a href=<%= "/public/sentences" %> class="mt-5 align-self-center flex-grow-1 mr-2"
         ><button
           type="button"
-          class="btn btn-primary mt-5 align-self-center flex-grow-1 mr-2"
+          class="btn btn-primary "
         >
           Sentences
         </button></a

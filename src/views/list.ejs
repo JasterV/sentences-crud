@@ -27,9 +27,9 @@
                 <% if (sentences && sentences.length> 0) { %>
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
-                            <a href="/sentences?page=0&orderBy">
-                                <button type="button" class="btn btn-secondary">Unsorted
+                        <div class="btn-group mx-2" role="group" aria-label="First group">
+                            <a href="/public/sentences">
+                                <button type="button" class="btn btn-secondary">reset
                                 </button>
                             </a>
                         </div>
@@ -40,12 +40,18 @@
                                 Sort categories
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <a class="dropdown-item" href="/sentences">ASC</a>
-                                <a class="dropdown-item" href="#">DESC</a>
+                                <a class="dropdown-item" href="/public/sentences?orderBy=category&order=asc">ASC</a>
+                                <a class="dropdown-item" href="/public/sentences?orderBy=category&order=desc">DESC</a>
                             </div>
                         </div>
 
-                        <a href="/sentences/1"><button type="button" class="btn btn-secondary mr-2">Next</button></a>
+                        <a href=<%= `/public/sentences?lastId=${sentences[sentences.length - 1].id}` + (orderBy ? `&orderBy=${orderBy}&order=${order || 'asc'}` : '')%>> 
+                            <button type="button" class="btn btn-secondary mx-2">Next</button>
+                        </a>
+
+                        <a href="/public/sentence"> 
+                            <button type="button" class="btn btn-secondary mx-2">New sentence</button>
+                        </a>
                     </div>
 
                     <table id="datatable" class="table table-striped mt-5" style="width:100%">
@@ -54,7 +60,6 @@
                                 <th>ID</th>
                                 <th>Text</th>
                                 <th>Category</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,15 +73,6 @@
                                     </td>
                                     <td>
                                         <%= sentence.category %>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="First group">
-                                            <a href=<%='/public/sentence/' + sentence.id %>>
-                                                <button type="button" class="btn btn-primary">Edit</button>
-                                            </a>
-                                            <a href=<%='/public/sentence/' + sentence.id + '/delete' %>><button
-                                                    type="button" class="btn btn-primary">Delete</button></a>
-                                        </div>
                                     </td>
                                 </tr>
                                 <% } %>
