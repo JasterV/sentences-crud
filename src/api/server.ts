@@ -1,11 +1,10 @@
 import express from 'express'
+import router from './router'
 
 const app = express()
 
 app.use(express.json())
 
-app.get('/dummy/hi', (_req, res) => {
-    res.json({success: true, data: 'Hello, World'})
-})
+app.use('/api/v1/sentences', router)
 
 export default app
