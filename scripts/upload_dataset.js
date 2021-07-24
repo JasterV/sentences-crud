@@ -1,6 +1,9 @@
 const admin = require('firebase-admin')
-const axios = require('axios')
 const serviceAccount = require("../.firebase.json");
+const fs = require('fs');
+const readline = require('readline');
+
+const DATA_FILE_PATH = 'scripts/sentences.jsonl.txt';
 
 (async () => {
     admin.initializeApp({
@@ -9,8 +12,28 @@ const serviceAccount = require("../.firebase.json");
 
     const db = admin.firestore()
 
-    const snapshot = await db.collection('sentences').get();
-    snapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data());
+    console.log('Firestore credentials ok')
+
+    const rl = readline.createInterface({
+        input: fs.createReadStream(DATA_FILE_PATH),
+        output: process.stdout,
+        terminal: false
+    });
+
+    console.log('Reading sentences.jsonl.txt')
+
+    rl.on('line', async (line) => {
+        const sentence = JSON.parse(line)
+        const sentencesRef = db.collection('sentences');
+        const categoriesRef = db.collection('categories');
+
+        const result = await sentencesRef.add({
+            text: sentence.text
+        })
+
+        await categoriesRef.add({
+            sentenceId: result.id,
+            ...sentence.cats
+        })
     });
 })();
