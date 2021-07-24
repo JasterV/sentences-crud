@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
-import { CrudModel } from '../../interfaces/crudModel'
-import { Sentence } from '../../interfaces/sentence'
+import { CrudModel } from '../interfaces/crudModel'
+import { Sentence } from '../interfaces/sentence'
 
 export const createSentenceController = (model: CrudModel<Sentence>) => {
     return async (req: Request, res: Response, next: NextFunction) => {

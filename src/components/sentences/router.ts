@@ -1,8 +1,8 @@
-import { bodySchemaValidator } from './middlewares/bodySchemaValidator'
-import { querySchemaValidator } from './middlewares/querySchemaValidator'
+import { bodySchemaValidator } from '../../common/middlewares/bodySchemaValidator'
+import { querySchemaValidator } from '../../common/middlewares/querySchemaValidator'
 import { createSchema, listSchema, updateSchema } from './schemas'
-import { sentenceModel } from '../models/sentenceModel'
-import Validator from 'fastest-validator'
+import validator from '../../common/services/validatorService'
+import { sentenceModel } from './sentenceModel'
 import { Router } from 'express'
 import {
     createSentenceController,
@@ -11,10 +11,9 @@ import {
     listSentencesController,
     getSentenceController
 } from './controllers'
-import db from '../db'
+import db from '../../db'
 
 const router = Router()
-const validator = new Validator()
 const model = sentenceModel(db)
 
 router.get('/:id', getSentenceController(model))

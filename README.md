@@ -5,6 +5,14 @@
   </a>
 </p>
 
+### In progress ...
+
+### TODO
+
+- Test sentences component
+- Create static views
+- aggregate script
+
 ## Author
 
 👤 **Victor Martinez**

@@ -1,17 +1,16 @@
 import { Request, Response, NextFunction } from 'express'
-import { NotFoundError } from '../../errors'
-import { CrudModel } from '../../interfaces/crudModel'
-import { Sentence } from '../../interfaces/sentence'
+import { NotFoundError } from '../../../common/errors'
+import { CrudModel } from '../interfaces/crudModel'
+import { Sentence } from '../interfaces/sentence'
 
-export const updateSentenceController = (model: CrudModel<Sentence>) => {
+export const listSentencesController = (model: CrudModel<Sentence>) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-        const { id } = req.params
-        const { text, category } = req.body
+        const { orderBy, order, lastId } = req.query
         try {
-            const sentence: Sentence = await model.update(id, { text, category })
+            const sentences: Sentence[] = await model.list({ orderBy, order, last: lastId })
             return res.status(201).json({
                 success: true,
-                data: sentence
+                data: sentences
             })
         } catch (err) {
             if (err instanceof NotFoundError) {

@@ -1,7 +1,7 @@
-import { NotFoundError } from "../errors";
-import { CrudModel } from "../interfaces/crudModel";
-import { CreateSentenceOptions, ListSentencesOptions, UpdateSentenceOptions } from "../interfaces/queryOptions"
-import { Sentence } from "../interfaces/sentence"
+import { CreateSentenceOptions, ListSentencesOptions, UpdateSentenceOptions } from "./interfaces/queryOptions"
+import { NotFoundError } from "../../common/errors";
+import { CrudModel } from "./interfaces/crudModel";
+import { Sentence } from "./interfaces/sentence"
 
 export const sentenceModel = (db: DB): CrudModel<Sentence> => {
     const PAGE_LIMIT = 20

@@ -1,4 +1,4 @@
-import app from './api/server'
+import app from './server'
 import config from './config'
 
 const port = config.port
