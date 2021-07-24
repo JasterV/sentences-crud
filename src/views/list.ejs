@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Sentences CRUD</title>
+</head>
+
+<body>
+
+    <div class="d-flex flex-column h-100 flex-grow-1">
+        <% if(!sentences || sentences && sentences.length==0) { %>
+            <h1 class="mt-5 title align-self-center">No sentences found</h1>
+            <a class="mt-5 align-self-center" href="/public/sentence">
+                <button type="button" class="btn btn-primary">
+                    <h3>New Sentence</h3>
+                </button>
+            </a>
+            <% } %>
+                <% if (sentences && sentences.length> 0) { %>
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <a href="/sentences?page=0&orderBy">
+                                <button type="button" class="btn btn-secondary">Unsorted
+                                </button>
+                            </a>
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort categories
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <a class="dropdown-item" href="/sentences">ASC</a>
+                                <a class="dropdown-item" href="#">DESC</a>
+                            </div>
+                        </div>
+
+                        <a href="/sentences/1"><button type="button" class="btn btn-secondary mr-2">Next</button></a>
+                    </div>
+
+                    <table id="datatable" class="table table-striped mt-5" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Text</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(const sentence of sentences) { %>
+                                <tr>
+                                    <td>
+                                      <a href=<%= '/public/sentence/' + sentence.id %>><%= sentence.id %></a>  
+                                    </td>
+                                    <td>
+                                        <%= sentence.text %>
+                                    </td>
+                                    <td>
+                                        <%= sentence.category %>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="First group">
+                                            <a href=<%='/public/sentence/' + sentence.id %>>
+                                                <button type="button" class="btn btn-primary">Edit</button>
+                                            </a>
+                                            <a href=<%='/public/sentence/' + sentence.id + '/delete' %>><button
+                                                    type="button" class="btn btn-primary">Delete</button></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                    <% } %>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
