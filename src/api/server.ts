@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
-import config from 'src/config'
-import { errorService } from 'src/services'
 import authMiddleware from './middlewares/authMiddleware'
+import { errorService } from '../services/errorService'
+import config from '../config'
 import router from './router'
 
 const { handle } = errorService()

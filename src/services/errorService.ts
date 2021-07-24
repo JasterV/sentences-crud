@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import { ApiError, DatabaseError, RequestError } from 'src/errors'
+import { ApiError, DatabaseError, RequestError } from '../errors'
 
 export const errorService = () => {
     

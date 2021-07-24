@@ -1,18 +1,24 @@
-import { NotFoundError } from "src/errors";
-import { ListSentencesOptions, UpdateSentenceOptions } from "src/interfaces/queryOptions"
-import { Sentence } from "src/interfaces/sentence"
+import { NotFoundError } from "../errors";
+import { CrudModel } from "../interfaces/crudModel";
+import { CreateSentenceOptions, ListSentencesOptions, UpdateSentenceOptions } from "../interfaces/queryOptions"
+import { Sentence } from "../interfaces/sentence"
 
-export const sentenceModel = (db: DB) => {
+export const sentenceModel = (db: DB): CrudModel<Sentence> => {
     const PAGE_LIMIT = 20
 
-    async function getSentence(id: string): Promise<Sentence> {
+    async function create(data: CreateSentenceOptions): Promise<string> {
+        const sentenceRaw = await db.collection('sentence').add(data);
+        return sentenceRaw.id
+    }
+
+    async function getById(id: string): Promise<Sentence> {
         const sentenceRaw = await db.collection('sentence').doc(id).get();
         if (!sentenceRaw.exists) throw new NotFoundError(`Sentence with id ${id} not found`)
         const sentence: Sentence = { id, ...sentenceRaw.data() } as Sentence
         return sentence
     }
 
-    async function listSentence(options?: ListSentencesOptions): Promise<Sentence[]> {
+    async function list(options?: ListSentencesOptions): Promise<Sentence[]> {
         const { page = 0, orderBy = null, order = 'desc' } = options || {}
         const sentences: Sentence[] = []
         let query = db.collection('sentences');
@@ -24,19 +30,19 @@ export const sentenceModel = (db: DB) => {
         return sentences
     }
 
-    async function deleteSentence(id: string): Promise<string> {
+    async function del(id: string): Promise<string> {
         const sentenceRaw = await db.collection('sentence').doc(id).get();
         if (!sentenceRaw.exists) throw new NotFoundError(`Sentence with id ${id} not found`)
         await sentenceRaw.ref.delete();
         return id
     }
 
-    async function updateSentence(id: string, data: UpdateSentenceOptions): Promise<Sentence> {
+    async function update(id: string, data: UpdateSentenceOptions): Promise<Sentence> {
         const sentenceRaw = await db.collection('sentence').doc(id).get();
         if (!sentenceRaw.exists) throw new NotFoundError(`Sentence with id ${id} not found`)
         await sentenceRaw.ref.update(data);
         return { id, ...sentenceRaw.data() } as Sentence
     }
 
-    return { getSentence, listSentence, deleteSentence, updateSentence }
+    return { create, getById, list, update, del }
 }
