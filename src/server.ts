@@ -12,7 +12,6 @@ const app = express()
 
 app.set('view engine', 'ejs')
 app.set('views', process.cwd() + '/src/views')
-app.use(express.static(process.cwd() + '/public'))
 app.use(express.json())
 
 app.use('/public', viewsRouter)
