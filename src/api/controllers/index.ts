@@ -1,0 +1,5 @@
+export * from './createSentenceController'
+export * from './deleteSentenceController'
+export * from './getSentenceController'
+export * from './listSentencesController'
+export * from './updateSentenceController'

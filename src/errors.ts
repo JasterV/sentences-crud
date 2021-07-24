@@ -13,3 +13,7 @@ export class NotFoundError extends ApiError {
 export class DatabaseError extends ApiError {
 	constructor(description: string) { super(description) }
 }
+
+export class RequestError extends ApiError {
+	constructor(description: string) { super(description) }
+}

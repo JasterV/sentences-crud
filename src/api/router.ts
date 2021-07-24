@@ -1,30 +1,19 @@
 import { Router } from 'express'
-import config from 'src/config'
-import authMiddleware from './middlewares/authMiddleware'
+import {
+    createSentenceController, 
+    updateSentenceController, 
+    deleteSentenceController, 
+    listSentencesController, 
+    getSentenceController 
+} from './controllers'
 
 const router = Router()
 
-router.use(authMiddleware(config.secret))
-
-router.get('/list', (req, res) => {
-    console.log('hi')
-})
-
-router.get('/:id', (req, res) => {
-    console.log('hi')
-})
-
-router.post('/', (req, res) => {
-    console.log('hi')
-})
-
-router.put('/:id', (req, res) => {
-    console.log('hi')
-})
-
-router.delete('/:id', (req, res) => {
-    console.log('hi')
-})
+router.get('/list', listSentencesController())
+router.get('/:id', getSentenceController())
+router.post('/', createSentenceController())
+router.put('/:id', updateSentenceController())
+router.delete('/:id', deleteSentenceController())
 
 export default router
 

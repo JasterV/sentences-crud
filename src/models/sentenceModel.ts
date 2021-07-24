@@ -2,7 +2,7 @@ import { NotFoundError } from "src/errors";
 import { ListSentencesOptions, UpdateSentenceOptions } from "src/interfaces/queryOptions"
 import { Sentence } from "src/interfaces/sentence"
 
-const model = (db: DB) => {
+export const sentenceModel = (db: DB) => {
     const PAGE_LIMIT = 20
 
     async function getSentence(id: string): Promise<Sentence> {
@@ -40,5 +40,3 @@ const model = (db: DB) => {
 
     return { getSentence, listSentence, deleteSentence, updateSentence }
 }
-
-export default model
