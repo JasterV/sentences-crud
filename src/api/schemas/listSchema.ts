@@ -1,11 +1,11 @@
 import { ValidationSchema } from "fastest-validator";
 
 export const listSchema: ValidationSchema = {
-    orderBy: 'string',
+    orderBy: 'string|optional',
     order: {
         optional: true,
-        type: 'equal',
+        type: 'enum',
         values: ['asc', 'desc']
     },
-    page: 'number|integer|positive|optional'
+    lastId: 'string|optional'
 }

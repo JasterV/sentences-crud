@@ -1,7 +1,7 @@
 export interface ListSentencesOptions {
     orderBy?: string,
     order?: 'asc' | 'desc',
-    page?: number
+    last?: string
 }
 
 export interface UpdateSentenceOptions {

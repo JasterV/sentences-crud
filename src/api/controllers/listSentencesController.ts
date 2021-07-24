@@ -5,9 +5,9 @@ import { Sentence } from '../../interfaces/sentence'
 
 export const listSentencesController = (model: CrudModel<Sentence>) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-        const { orderBy, order, page } = req.query
+        const { orderBy, order, lastId } = req.query
         try {
-            const sentences: Sentence[] = await model.list({ orderBy, order, page })
+            const sentences: Sentence[] = await model.list({ orderBy, order, last: lastId })
             return res.status(201).json({
                 success: true,
                 data: sentences

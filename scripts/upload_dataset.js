@@ -25,16 +25,14 @@ const DATA_FILE_PATH = 'scripts/sentences.jsonl.txt';
 
     rl.on('line', async (line) => {
         const sentence = JSON.parse(line)
-        const sentencesRef = db.collection('sentences');
         const entry = Object.entries(sentence.cats).find((elem) => elem['1'] == 1)
         if(!entry) {
             console.log('Sentence: ', sentence, ' does not have a category')
             return
         }
-        await sentencesRef.add({
+        await db.collection('sentences').doc().set({
             text: sentence.text,
-            category: entry['0']
+            category: entry[0]
         })
     });
-    console.log('Done!')
 })();
