@@ -5,13 +5,47 @@
   </a>
 </p>
 
+> Nodejs CRUD app using Firebase & Firestore
+
+## BUILD
+
+```npm run build```
+
+## RUN
+
+```npm run start```
+
+## DOCS
+
 ### API Authentication
+
+To make any request to the sentences or translation api you will need to provide an authorization header:
+
+```{ 'Authorization': 'Bearer <token>' }```
 
 ### Sentences API
 
++ Endpoint: `https://sentences-crud.herokuapp.com/api/v1/sentences`
+
++ operations:
++ + GET /?[lastId=string]&[orderBy=string]&[order='asc' | 'desc']
++ + GET /:id
++ + POST /:id { text: string, category: string }
++ + PUT /:id { text?: string, category?: string }
++ + DELETE /:id
+
 ### Translation API
 
++ Endpoint: `https://sentences-crud.herokuapp.com/api/v1/translate`
+
++ operations:
++ + POST / { sentence: string }
+
 ### Sentences views
+
+You can access the views on `https://sentences-crud.herokuapp.com`
+
+From this webpage you can perform any operation you can do with the sentences API
 
 ### TODO
 
