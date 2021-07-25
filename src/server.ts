@@ -1,14 +1,19 @@
+import { translationModel } from './components/translation/translationModel'
+import { sentenceModel } from './components/sentences/sentenceModel'
 import express, { NextFunction, Request, Response } from 'express'
 import authMiddleware from './common/middlewares/authMiddleware'
+import translationRouter from './components/translation/router'
 import { errorService } from './common/services/errorService'
 import sentenceRouter from './components/sentences/router'
-import translationRouter from './components/translation/router'
 import viewsRouter from './components/view/router'
 import config from './config'
+import axios from 'axios'
+import db from './db'
 
 const { handle } = errorService()
 
 const app = express()
+
 
 app.set('view engine', 'ejs')
 app.set('views', process.cwd() + '/src/views')
@@ -16,9 +21,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // translation api
-app.use('/api/v1/translate', authMiddleware(config.secret), translationRouter)
+const trModel = translationModel(axios, { key: config.deepl.key, url: config.deepl.url })
+app.use('/api/v1/translate', authMiddleware(config.secret), translationRouter(trModel))
 // sentences api
-app.use('/api/v1/sentences', authMiddleware(config.secret), sentenceRouter)
+const sModel = sentenceModel(db)
+app.use('/api/v1/sentences', authMiddleware(config.secret), sentenceRouter(sModel))
 // Public views
 app.use('/public', viewsRouter)
 // Redirect to home page

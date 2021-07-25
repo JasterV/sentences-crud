@@ -7,7 +7,5 @@
   ],
   "testMatch": [
     "<rootDir>/**/*.test.ts"
-  ],
-  "resetMocks": true,
-  "clearMocks": true
+  ]
 }
