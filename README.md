@@ -5,7 +5,13 @@
   </a>
 </p>
 
-### In progress ...
+### API Authentication
+
+### Sentences API
+
+### Translation API
+
+### Sentences views
 
 ### TODO
 
