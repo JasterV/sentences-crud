@@ -13,6 +13,7 @@ const app = express()
 app.set('view engine', 'ejs')
 app.set('views', process.cwd() + '/src/views')
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.use('/public', viewsRouter)
 // translation api

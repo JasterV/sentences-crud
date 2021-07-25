@@ -14,23 +14,12 @@ router.get('/sentences', async (req, res) => {
     return res.render('list', { sentences, orderBy: orderBy ?? null, order })
 })
 
-router.get('/sentence/create', async (req, res) => {
-    const { text, category } = req.body
-    const id = await model.create({ text, category })
-    return res.redirect('/public/sentence/' + id)
-})
+
 
 router.get('/sentence/:id/delete', async (req, res) => {
     const { id } = req.params
     await model.del(id)
     return res.redirect('/public/sentences')
-})
-
-router.get('/sentence/:id/update', async (req, res) => {
-    const { id } = req.params
-    const { text, category } = req.body
-    const sentence: Sentence = await model.update(id, { text, category })
-    return res.render('sentence', { sentence })
 })
 
 router.get('/sentence/:id/edit', async (req, res) => {
@@ -46,6 +35,19 @@ router.get('/sentence/:id', async (req, res) => {
 })
 
 router.get('/sentence', (_req, res) => res.render('form_sentence', { sentence: {} }))
+
+router.post('/sentence/:id/edit', async (req, res) => {
+    const { id } = req.params
+    const { text, category } = req.body
+    const sentence: Sentence = await model.update(id, { text, category })
+    return res.render('sentence', { sentence })
+})
+
+router.post('/sentence', async (req, res) => {
+    const { text, category } = req.body
+    const id = await model.create({ text, category })
+    return res.redirect('/public/sentence/' + id)
+})
 
 // EJS views
 router.get('/', (_req, res) => res.render('index'))
