@@ -43,7 +43,7 @@ To make any request to the sentences or translation api you will need to provide
 
 ### Sentences views
 
-You can access the views from `https://sentences-crud.herokuapp.com`
+You can access the views on `https://sentences-crud.herokuapp.com`
 
 From this webpage you can perform any operation you can do with the sentences API
 
