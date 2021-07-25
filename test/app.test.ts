@@ -157,3 +157,40 @@ describe('Test sentences api', () => {
   })
 });
 
+describe('Test translation api', () => {
+  it('returns unauthorized if no auth provided', async () => {
+    expect.assertions(1)
+    const result = await request.get('/api/v1/translate').expect(401)
+    expect(result.body).toMatchObject({
+      success: false,
+      msg: 'Unauthorized'
+    })
+  })
+
+  it('returns results if deepl returns a response', async () => {
+    expect.assertions(1)
+    mockAxios.post.mockResolvedValueOnce({ data: { translations: 'Hello, World' } })
+    const result = await request.post('/api/v1/translate')
+                                .send({ sentence: 'hi' })
+                                .set('Authorization', `Bearer ${mockConfig.secret}`)
+                                .expect(200)
+    expect(result.body).toMatchObject({
+      success: true,
+      data: 'Hello, World'
+    })
+  })
+
+  it('returns server error if deepl returns an error', async () => {
+    expect.assertions(1)
+    mockAxios.post.mockRejectedValueOnce({})
+    const result = await request.post('/api/v1/translate')
+                                .send({ sentence: 'hi' })
+                                .set('Authorization', `Bearer ${mockConfig.secret}`)
+                                .expect(500)
+    expect(result.body).toMatchObject({
+      success: false,
+      msg: 'Server internal error: failed to fetch a third party API'
+    })
+  })
+})
+
