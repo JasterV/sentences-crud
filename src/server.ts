@@ -20,6 +20,8 @@ app.use('/public', viewsRouter)
 app.use('/api/v1/translate', authMiddleware(config.secret), translationRouter)
 // sentences api
 app.use('/api/v1/sentences', authMiddleware(config.secret), sentenceRouter)
+
+app.get('/', (_req, res) => res.redirect('/public'))
 // Error handling logic
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => handle(err, res))
 process.on('uncaughtException', handle)
