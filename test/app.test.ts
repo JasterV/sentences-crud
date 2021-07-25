@@ -13,6 +13,15 @@ beforeAll(() => {
 
 describe('Test sentences api', () => {
 
+  it('returns unauthorized if no auth provided', async () => {
+    expect.assertions(1)
+    const result = await request.get('/api/v1/sentences').expect(401)
+    expect(result.body).toMatchObject({
+      success: false,
+      msg: 'Unauthorized'
+    })
+  })
+
   it('can get sentence by Id', async () => {
     expect.assertions(1)
     const sentence = sentencesData['abc123']
@@ -24,5 +33,16 @@ describe('Test sentences api', () => {
       data: expect.objectContaining(sentence)
     })
   });
+
+  it('returns error 404 if sentence not found', async () => {
+    expect.assertions(1)
+    const result = await request
+      .get('/api/v1/sentences/patata')
+      .set('Authorization', `Bearer ${mockConfig.secret}`)
+    expect(result.body).toMatchObject({
+      success: false,
+      msg: 'Sentence with id patata not found'
+    })
+  })
 
 });
