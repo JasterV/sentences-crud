@@ -14,8 +14,6 @@ router.get('/sentences', async (req, res) => {
     return res.render('list', { sentences, orderBy: orderBy ?? null, order })
 })
 
-
-
 router.get('/sentence/:id/delete', async (req, res) => {
     const { id } = req.params
     await model.del(id)
@@ -58,7 +56,5 @@ router.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     }
     return res.render('error', { error: { code: 500, title: 'SERVER ERROR' } });
 })
-
-router.use((_req, res) => res.render('error', { error: { code: 404, title: 'NOT FOUND' } }))
 
 export default router

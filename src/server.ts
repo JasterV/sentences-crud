@@ -15,15 +15,19 @@ app.set('views', process.cwd() + '/src/views')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/public', viewsRouter)
 // translation api
 app.use('/api/v1/translate', authMiddleware(config.secret), translationRouter)
 // sentences api
 app.use('/api/v1/sentences', authMiddleware(config.secret), sentenceRouter)
-
+// Public views
+app.use('/public', viewsRouter)
+// Redirect to home page
 app.get('/', (_req, res) => res.redirect('/public'))
-// Error handling logic
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => handle(err, res))
+// Api error handling
+app.use('/api/v1', (err: Error, _req: Request, res: Response, _next: NextFunction) => handle(err, res))
+// Page not found
+app.use((_req, res) => res.render('error', { error: { code: 404, title: 'NOT FOUND' } }))
+
 process.on('uncaughtException', handle)
 
 export default app
